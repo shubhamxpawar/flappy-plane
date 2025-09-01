@@ -7,7 +7,11 @@
 
 #myCanvas {
     border: 2px solid black;
-    background: lightblue;
+    background-image: url('https://images.saymedia-content.com/.image/ar_16:9%2Cc_fill%2Ccs_srgb%2Cfl_progressive%2Cq_auto:eco%2Cw_1200/MTgzMTA4MzExMTI0NTUxMDc1/911-anniversary-remembrance-poem-blue-sky-tragedy.jpg');
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+   
     margin: auto;
     width: 900px;
     height: 600px;
