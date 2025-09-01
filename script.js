@@ -1,14 +1,17 @@
 const canvas = document.getElementById('myCanvas');
 const ctx = canvas.getContext('2d');
 
-const gravity = 0.25;
+const gravity = 0.2;
 const bounceFactor = 0.4; 
 
 let plane = new Image();
-let x = 10;
-let y = 0;
+let x = 20;
+let y = (canvas.height / 2) - 20;
 let velocityY = 0;
 let velocityX = 5;
+
+// State management
+let gameState = 'ready'; // 'ready' or 'playing'
 
 const imageCanvas = document.createElement('canvas');
 const imageCtx = imageCanvas.getContext('2d');
@@ -19,33 +22,47 @@ plane.onload = () => {
     imageCanvas.width = 500;
     imageCanvas.height = 500;
     imageCtx.drawImage(plane, 0, 0, imageCanvas.width, imageCanvas.height);
-    animate();
+    // Start the single game loop
+    gameLoop();
 };
 
 document.addEventListener('keydown', (event) => {
+    if (gameState === 'ready') {
+        // Change state and reset velocity for the game to start
+        gameState = 'playing';
+        velocityY = 0;
+    }
+
     if (event.code === 'Space' || event.key === 'ArrowUp') {
-        // Prevent the default browser action (e.g., scrolling)
         event.preventDefault(); 
-        
-        // Give the plane an upward "thrust" by setting a negative vertical velocity
-        velocityY = -3; // Adjust this value to change the jump height
+        velocityY = -3; 
     }
 });
 
-function animate() {
+let readyTime = 0; // Use a counter for the bobbing animation
+
+function gameLoop(timestamp) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    if(y < 0) y = 0;
+    if (gameState === 'ready') {
+        // Bobbing animation for the ready state
+        const bobSpeed = 0.01;
+        const bobRange = 5;
+        y = canvas.height / 2 + Math.sin(timestamp * bobSpeed) * bobRange - 20;
+        ctx.drawImage(imageCanvas, x, y, 40, 25);
+    } else if (gameState === 'playing') {
+        // Main game animation
+        if(y < 0) y = 0;
 
-    velocityY += gravity;
-    y += velocityY;
+        velocityY += gravity;
+        y += velocityY;
+        
+        if (y + 25 > canvas.height) {
+            gameState = 'ready'
+        }
 
-    if (y + 25 > canvas.height) {
-      y = 0
-      velocityY = 0
+        ctx.drawImage(imageCanvas, x, y, 40, 25);
     }
-
-    ctx.drawImage(imageCanvas, x, y, 40, 25);
-
-    requestAnimationFrame(animate);
+    
+    requestAnimationFrame(gameLoop);
 }
