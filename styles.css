@@ -1,0 +1,59 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: black;
+}
+
+#myCanvas {
+    border: 2px solid black;
+    background: lightblue;
+    margin: auto;
+    width: 900px;
+    height: 600px;
+}
+
+#title {
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: darkblue;
+    color: white;
+    padding: 10px;
+}
+
+#plane {
+    width: 150px;
+    height: auto;
+    position :absolute;
+    top : 25px;
+    left: 25px;
+    right: 25px;
+    /* background: orange; */
+}
+
+#controlh {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: white;
+    margin-left: 20px;
+    margin-top: 20px;
+    font-size: 45px;
+}
+
+#list {
+    list-style-type: none;
+    margin-left: 30px;
+    margin-top: 30px;
+    color: white;
+    font-size: 40px;
+}
+
+#item{
+    vertical-align: middle;
+    display: flex;
+    align-items: center;
+}
+
+.icon{
+    width: 40px;
+    margin: 10px;
+}
